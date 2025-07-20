@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clewe - Coming Fall 2025</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=OCR+A&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'OCR A', monospace;
+            background: #000000;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .background-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            background-image: 
+                linear-gradient(#333 1px, transparent 1px),
+                linear-gradient(90deg, #333 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .container {
+            max-width: 800px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo {
+            font-size: 5rem;
+            font-weight: normal;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            position: relative;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff00, transparent);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: #888888;
+            margin-bottom: 4rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .main-content {
+            border: 2px solid #333333;
+            background: rgba(20, 20, 20, 0.8);
+            padding: 4rem 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+        
+        .main-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff00, transparent);
+            animation: scanline 3s linear infinite;
+        }
+        
+        @keyframes scanline {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .coming-text {
+            font-size: 2.8rem;
+            color: #00ff00;
+            margin-bottom: 1.5rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: normal;
+        }
+        
+        .date-text {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-bottom: 3rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .email-section {
+            margin-top: 3rem;
+        }
+        
+        .email-label {
+            display: block;
+            font-size: 0.9rem;
+            color: #888888;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .email-input {
+            padding: 1.2rem 1.5rem;
+            border: 2px solid #333333;
+            background: #111111;
+            color: #ffffff;
+            font-family: 'OCR A', monospace;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            outline: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+        
+        .email-input:focus {
+            border-color: #00ff00;
+            background: #1a1a1a;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+        }
+        
+        .email-input::placeholder {
+            color: #555555;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .submit-btn {
+            padding: 1.2rem 2rem;
+            border: 2px solid #00ff00;
+            background: transparent;
+            color: #00ff00;
+            font-family: 'OCR A', monospace;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #00ff00;
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+        
+        .submit-btn:hover::before {
+            left: 0;
+        }
+        
+        .submit-btn:hover {
+            color: #000000;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+        }
+        
+        .success-message {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            display: none;
+            font-family: 'OCR A', monospace;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333333;
+        }
+        
+        .footer-text {
+            font-size: 0.8rem;
+            color: #555555;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .terminal-cursor {
+            display: inline-block;
+            background: #00ff00;
+            width: 2px;
+            height: 1.2em;
+            margin-left: 2px;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .logo {
+                font-size: 3rem;
+                letter-spacing: 4px;
+            }
+            
+            .main-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .coming-text {
+                font-size: 2rem;
+                letter-spacing: 2px;
+            }
+            
+            .date-text {
+                font-size: 1.1rem;
+                letter-spacing: 2px;
+            }
+            
+            .email-form {
+                max-width: 100%;
+            }
+        }
+        
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        
+        .glitch::before {
+            animation: glitch-1 0.5s infinite;
+            color: #ff0000;
+            z-index: -1;
+        }
+        
+        .glitch::after {
+            animation: glitch-2 0.5s infinite;
+            color: #00ffff;
+            z-index: -2;
+        }
+        
+        @keyframes glitch-1 {
+            0%, 14%, 15%, 49%, 50%, 99%, 100% {
+                transform: translate(0);
+            }
+            15%, 49% {
+                transform: translate(-2px, 2px);
+            }
+        }
+        
+        @keyframes glitch-2 {
+            0%, 20%, 21%, 62%, 63%, 99%, 100% {
+                transform: translate(0);
+            }
+            21%, 62% {
+                transform: translate(2px, -2px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-grid"></div>
+    
+    <div class="container">
+        <div class="logo glitch" data-text="CLEWE">CLEWE</div>
+        <div class="subtitle">Next Generation Technology</div>
+        
+        <div class="main-content">
+            <div class="coming-text">Coming Soon<span class="terminal-cursor"></span></div>
+            <div class="date-text">Fall 2025</div>
+            
+            <div class="email-section">
+                <label class="email-label">Join the Waitlist</label>
+                <form class="email-form" id="emailForm">
+                    <input 
+                        type="email" 
+                        class="email-input" 
+                        placeholder="Enter your email"
+                        required
+                        id="emailInput"
+                    >
+                    <button type="submit" class="submit-btn">Notify Me</button>
+                </form>
+                
+                <div class="success-message" id="successMessage">
+                    ✓ Success! You're on the list.
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-text">© 2025 Clewe. All Rights Reserved.</div>
+        </div>
+    </div>
+
+    <script>
+        const emails = [];
+        
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const emailInput = document.getElementById('emailInput');
+            const email = emailInput.value.toLowerCase();
+            
+            if (email && emails.indexOf(email) === -1) {
+                emails.push(email);
+                console.log('Email registered:', email);
+                console.log('All emails:', emails);
+                
+                emailInput.value = '';
+                
+                const successMessage = document.getElementById('successMessage');
+                successMessage.style.display = 'block';
+                
+                // Add typing effect to success message
+                const originalText = successMessage.textContent;
+                successMessage.textContent = '';
+                let i = 0;
+                const typeWriter = setInterval(() => {
+                    if (i < originalText.length) {
+                        successMessage.textContent += originalText.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(typeWriter);
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 4000);
+                    }
+                }, 50);
+            }
+        });
+        
+        // Random glitch effect on logo
+        const logo = document.querySelector('.logo');
+        setInterval(() => {
+            if (Math.random() > 0.95) {
+                logo.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
+                setTimeout(() => {
+                    logo.style.transform = 'translate(0, 0)';
+                }, 100);
+            }
+        }, 100);
+    </script>
+</body>
+</html>
